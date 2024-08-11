@@ -7,17 +7,15 @@ const WK_PAGE = Object.freeze({
 
 class PageStatus {
   constructor(previousStatus) {
-    this.page = whichPage(unsafeWindow.location.href);
-    this.switched = previousStatus.page !== this.page
+    this.page = this.whichPage(unsafeWindow.location.href);
+    this.switched = previousStatus ? previousStatus.page !== this.page : true
   }
   whichPage(url) {
     switch (url) {
       case "https://www.wanikani.com/":
         return WK_PAGE.DASHBOARD
       case "https://www.wanikani.com/subjects/review":
-        if (document.querySelector(".quiz .character-header .character-header__content")) {
-          return WK_PAGE.REVIEW
-        }
+        return WK_PAGE.REVIEW
       default:
         return WK_PAGE.LOADING
     }

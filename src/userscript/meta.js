@@ -4,6 +4,7 @@
 // @description Replaces kanji in wanikani with hanzi writer. Licenses for kanji data are found at https://github.com/chanind/hanzi-writer-data-jp/
 // @match       https://www.wanikani.com/*
 // @grant       GM_getResourceText
+// @grant       GM_addStyle
 // @version     0.0.2
 // @author      Declan Fodor
 // @resource    kanjiJSON https://raw.githubusercontent.com/chanind/hanzi-writer-data-jp/master/data/all.json
