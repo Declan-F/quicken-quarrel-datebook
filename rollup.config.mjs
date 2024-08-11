@@ -1,11 +1,10 @@
-import { defineExternal, definePlugins } from '@gera2ld/plaid-rollup';
+import { definePlugins } from '@gera2ld/plaid-rollup';
 import { defineConfig } from 'rollup';
-import userscript from 'rollup-plugin-userscript';
-import pkg from './package.json' assert { type: 'json' };
-
+import { babel } from '@rollup/plugin-babel'
+import userscript from 'rollup-plugin-userscript'
 export default defineConfig(
   Object.entries({
-    'awesome-script': 'src/awesome-script/index.ts',
+    'wkhanziwriteraddition': 'src/userscript/index.js',
   }).map(([name, entry]) => ({
     input: entry,
     plugins: [
@@ -18,7 +17,8 @@ export default defineConfig(
         },
         extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx'],
       }),
-      userscript((meta) => meta.replace('process.env.AUTHOR', pkg.author)),
+      babel({ babelHelpers: 'bundled' }),
+      userscript()
     ],
     output: {
       format: 'iife',

@@ -1,9 +1,8 @@
-import "@violentmonkey/types"
 const WK_PAGE = Object.freeze({
   REVIEW: Symbol("review_page"),
   LESSON: Symbol("lesson_page"),
   DASHBOARD: Symbol("dashboard_page"),
-  OTHER: Symbol("other_page")
+  LOADING: Symbol("other_page") // Or a page we haven't implemented behavior for yet
 })
 
 class PageStatus {
@@ -11,18 +10,20 @@ class PageStatus {
     this.page = whichPage(unsafeWindow.location.href);
     this.switched = previousStatus.page !== this.page
   }
-  whichPage = function (url) {
+  whichPage(url) {
     switch (url) {
       case "https://www.wanikani.com/":
         return WK_PAGE.DASHBOARD
       case "https://www.wanikani.com/subjects/review":
-        return WK_PAGE.REVIEW
+        if (document.querySelector(".quiz .character-header .character-header__content")) {
+          return WK_PAGE.REVIEW
+        }
       default:
-        return WK_PAGE.OTHER
+        return WK_PAGE.LOADING
     }
   }
 }
 
 
-
+export { PageStatus, WK_PAGE }
 
