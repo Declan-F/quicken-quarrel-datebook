@@ -40,6 +40,9 @@ class ReviewPage {
             }
         } else {
             this.writer.setCharacter(this.kanji)
+            if (hanziWriterSettings.quiz) {
+                this.writer.quiz()
+            }
         }
     }
     onReviewPage() {
