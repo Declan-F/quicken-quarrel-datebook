@@ -6,4 +6,5 @@ let hanzi_writer_settings = {
     stroke_color: new SettingsElement('Drawing color', GM_getValue('stroke_color', '#aa00bb'), INPUT_TYPES.COLOR),
     quiz: new SettingsElement('Activate quiz mode', GM_getValue('quiz', 20), INPUT_TYPES.CHECKBOX)
 }
+
 export { hanzi_writer_settings }

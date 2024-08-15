@@ -18,7 +18,7 @@ class SettingsElement {
     }
 
     getInputElement() {
-        let input_element = document.createElement("input")
+        this.input_element = document.createElement("input")
         input_element.value = this.value
         switch (this.input_type) {
             case INPUT_TYPES.COLOR:
@@ -35,7 +35,9 @@ class SettingsElement {
                 return input_element
         }
     }
-
+    save() {
+        this.value = this.input_element.value
+    }
 
     /**
      * 
