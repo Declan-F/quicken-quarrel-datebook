@@ -78,17 +78,19 @@ class ReviewPage {
      * in the event that the characters shown are either a radical or vocabulary
      */
     refreshKanjiState() {
+        // CHANGEME shouldn't this return an enum and have the logic outside this function?
         if (document.querySelector(".quiz-input__question-category").innerText.toLowerCase() === "kanji") {
             if (this.kanjiElem.innerText !== this.kanji) {
                 // We have switched to a new kanji, mayhap away from vocabulary, so we need to set these to be shown
-                this.showHanziWriter()
                 this.kanji = this.kanjiElem.innerText
+                this.showHanziWriter()
                 return true
             } else {
                 return false
             }
         }
         // The character content has switched to vocabulary or a radical
+        this.kanji = null;
         this.hideHanziWriter()
         return false
     }
