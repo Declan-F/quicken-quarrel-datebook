@@ -1,46 +1,39 @@
-import { hanziWriterSettings } from "./settings"
-let kanjiJSON = JSON.parse(GM_getResourceText("kanjiJSON"))
+import { hanzi_writer_settings } from "../settings/settings"
+let kanji_json = JSON.parse(GM_getResourceText("kanjiJSON"))
 class ReviewPage {
-    kanjiElem = null;
+    kanji_elem = null;
     kanji = null;
     writer = null;
-    containerdiv = null;
+    container_div = null;
     /**
      * Called whenever the kanji has switched. It creates the hanzi writer instance
      */
     drawHanziWriter() {
         if (!this.writer) {
-            let characterheader = document.querySelector(".quiz .character-header")
-            this.containerdiv = document.createElement("div")
-            this.containerdiv.id = "wkhwa-container-div"
-            GM_addStyle(`#wkhwa-container-div {
-                position: relative;
-                top: -32px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }`)
-            this.writer = HanziWriter.create(this.containerdiv, this.kanji, {
+            let character_header = document.querySelector(".quiz .character-header")
+            this.container_div = document.createElement("div")
+            this.container_div.id = "wkhwa-container-div"
+            this.writer = HanziWriter.create(this.container_div, this.kanji, {
                 width: 200,
                 height: 200,
                 showCharacter: false,
                 showHintAfterMisses: 3,
                 padding: 5,
-                drawingWidth: hanziWriterSettings.drawingWidth,
-                strokeColor: hanziWriterSettings.strokeColor,
-                drawingColor: hanziWriterSettings.drawingColor,
+                drawingWidth: hanzi_writer_settings.drawing_color,
+                strokeColor: hanzi_writer_settings.stroke_color,
+                drawingColor: hanzi_writer_settings.drawing_width,
 
-                charDataLoader: (char, onLoad) => {
-                    onLoad(kanjiJSON[char])
+                charDataLoader: (char, on_load) => {
+                    onLoad(kanji_json[char])
                 }
             })
-            characterheader.append(this.containerdiv)
-            if (hanziWriterSettings.quiz) {
+            character_header.append(this.container_div)
+            if (hanzi_writer_settings.quiz) {
                 this.writer.quiz()
             }
         } else {
             this.writer.setCharacter(this.kanji)
-            if (hanziWriterSettings.quiz) {
+            if (hanzi_writer_settings.quiz) {
                 this.writer.quiz()
             }
         }
@@ -51,25 +44,25 @@ class ReviewPage {
                 this.drawHanziWriter()
             }
         })
-        this.kanjiElem = document.querySelector(".quiz .character-header .character-header__characters")
+        this.kanji_elem = document.querySelector(".quiz .character-header .character-header__characters")
         if (this.refreshKanjiState()) {
             this.drawHanziWriter()
         }  
-        this.observer.observe(this.kanjiElem, {
+        this.observer.observe(this.kanji_elem, {
           childList: true,
           subtree: true,
         })
     }
     showHanziWriter() {
-        this.kanjiElem.hidden = true
-        if (this.containerdiv) {
-            this.containerdiv.hidden = false
+        this.kanji_elem.hidden = true
+        if (this.container_div) {
+            this.container_div.hidden = false
         }
     }
     hideHanziWriter() {
-        this.kanjiElem.hidden = false
-        if (this.containerdiv) {
-            this.containerdiv.hidden = true
+        this.kanji_elem.hidden = false
+        if (this.container_div) {
+            this.container_div.hidden = true
         }
     }
     /**
@@ -80,9 +73,9 @@ class ReviewPage {
     refreshKanjiState() {
         // CHANGEME shouldn't this return an enum and have the logic outside this function?
         if (document.querySelector(".quiz-input__question-category").innerText.toLowerCase() === "kanji") {
-            if (this.kanjiElem.innerText !== this.kanji) {
+            if (this.kanji_elem.innerText !== this.kanji) {
                 // We have switched to a new kanji, mayhap away from vocabulary, so we need to set these to be shown
-                this.kanji = this.kanjiElem.innerText
+                this.kanji = this.kanji_elem.innerText
                 this.showHanziWriter()
                 return true
             } else {
@@ -100,7 +93,7 @@ class ReviewPage {
     offReviewPage() {
         this.kanji = null
         this.writer = null
-        this.containerdiv = null
+        this.container_div = null
         if (this.observer) {
             this.observer.disconnect()
         }

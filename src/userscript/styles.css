@@ -1,0 +1,13 @@
+#wkhwa-container-div {
+    position: relative;
+    top: -32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wkhwa-settings-box {
+    display: flex;
+}
+.wkhwa-settings-label {
+    flex: auto;
+}
