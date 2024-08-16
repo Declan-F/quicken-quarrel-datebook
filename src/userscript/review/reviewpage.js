@@ -1,4 +1,3 @@
-import { hanzi_writer_settings } from "../settings/settings"
 let kanji_json = JSON.parse(GM_getResourceText("kanjiJSON"))
 class ReviewPage {
     kanji_elem = null;
@@ -14,27 +13,39 @@ class ReviewPage {
             this.container_div = document.createElement("div")
             this.container_div.id = "wkhwa-container-div"
             this.writer = HanziWriter.create(this.container_div, this.kanji, {
-                width: 200,
-                height: 200,
-                showCharacter: false,
-                showHintAfterMisses: 3,
-                padding: 5,
-                drawingWidth: hanzi_writer_settings.drawing_color,
-                strokeColor: hanzi_writer_settings.stroke_color,
-                drawingColor: hanzi_writer_settings.drawing_width,
-
+                showOutline: wkof.settings.wkhwa.showOutline,
+                showCharacter: wkof.settings.wkhwa.showCharacter,
+                width: wkof.settings.wkhwa.width,
+                height: wkof.settings.wkhwa.height,
+                padding: wkof.settings.wkhwa.padding,
+                strokeAnimationSpeed: wkof.settings.wkhwa.strokeAnimationSpeed,
+                strokeHighlightSpeed: wkof.settings.wkhwa.strokeHighlightSpeed,
+                strokeFadeDuration: wkof.settings.wkhwa.strokeFadeDuration,
+                delayBetweenStrokes: wkof.settings.wkhwa.delayBetweenStrokes,
+                delayBetweenLoops: wkof.settings.wkhwa.delayBetweenLoops,
+                strokeColor: wkof.settings.wkhwa.strokeColor,
+                highlightColor: wkof.settings.wkhwa.highlightColor,
+                outlineColor: wkof.settings.wkhwa.outlineColor,
+                drawingColor: wkof.settings.wkhwa.drawingColor,
+                drawingWidth: wkof.settings.wkhwa.drawingWidth,
+                showHintAfterMisses: wkof.settings.wkhwa.showHintAfterMisses,
+                quizStartStrokeNum: wkof.settings.wkhwa.quizStartStrokeNum,
+                highlightOnComplete: wkof.settings.wkhwa.highlightOnComplete,
                 charDataLoader: (char, on_load) => {
-                    onLoad(kanji_json[char])
+                    on_load(kanji_json[char])
                 }
             })
             character_header.append(this.container_div)
-            if (hanzi_writer_settings.quiz) {
-                this.writer.quiz()
-            }
         } else {
             this.writer.setCharacter(this.kanji)
-            if (hanzi_writer_settings.quiz) {
-                this.writer.quiz()
+        }
+        if (wkof.settings.wkhwa.quiz) {
+            this.writer.quiz()
+        } else if (wkof.settings.wkhwa.animate) {
+            if (wkof.settings.wkhwa.loop_animation) {
+                this.writer.loopCharacterAnimation()
+            } else {
+                this.writer.animateCharacter();
             }
         }
     }

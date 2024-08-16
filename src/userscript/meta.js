@@ -9,7 +9,6 @@
 // @grant       GM_getValue
 // @version     0.0.3
 // @author      Declan Fodor
-// @resource    styleCSS styles.css
 // @resource    kanjiJSON https://raw.githubusercontent.com/chanind/hanzi-writer-data-jp/master/data/all.json
 // @require     https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.js
 // @require     https://cdn.jsdelivr.net/npm/@violentmonkey/dom@2
@@ -17,9 +16,6 @@
 // ==/UserScript==
 
 /**
- * Code here will be ignored on compilation. So it's a good place to leave messages to developers.
- *
- * - The `@grant`s used in your source code will be added automatically by `rollup-plugin-userscript`.
- *   However you have to add explicitly those used in required resources.
- * - `process.env.VERSION` and `process.env.AUTHOR` will be loaded from `package.json`.
+ * Please use https://declanfodor.com/hanzi-writer-data-jp.json for all.json when developing, and 
+ * https://raw.githubusercontent.com/chanind/hanzi-writer-data-jp/master/data/all.json for releases.
  */
