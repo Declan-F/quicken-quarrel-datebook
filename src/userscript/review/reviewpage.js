@@ -83,7 +83,7 @@ class ReviewPage {
      */
     refreshKanjiState() {
         // CHANGEME shouldn't this return an enum and have the logic outside this function?
-        if (document.querySelector(".quiz-input__question-category").innerText.toLowerCase() === "kanji") {
+        if (document.querySelector(".quiz-input__question-category").innerText.toLowerCase() === "kanji" && kanji_json[this.kanji_elem.innerText]) {
             if (this.kanji_elem.innerText !== this.kanji) {
                 // We have switched to a new kanji, mayhap away from vocabulary, so we need to set these to be shown
                 this.kanji = this.kanji_elem.innerText
