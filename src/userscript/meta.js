@@ -7,7 +7,7 @@
 // @grant       GM_addStyle
 // @grant       GM_setvalue
 // @grant       GM_getValue
-// @version     0.0.3
+// @version     0.0.4
 // @author      Declan Fodor
 // @resource    kanjiJSON https://raw.githubusercontent.com/chanind/hanzi-writer-data-jp/master/data/all.json
 // @require     https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.js
